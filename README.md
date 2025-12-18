@@ -8,7 +8,6 @@ Simple booking system with Laravel API + Vue 3 frontend.
 ```bash
 cd backend
 composer install
-cp .env.example .env
 php artisan key:generate
 php artisan migrate:fresh --seed
 
