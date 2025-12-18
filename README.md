@@ -2,75 +2,130 @@
 
 Simple booking system with Laravel API + Vue 3 frontend.
 
-## Quick Start
+---
 
-### 1. Backend (Laravel)
+## 🚀 Quick Start
+
+### Prerequisites
+- PHP 8.2+
+- Composer
+- Node.js 18+
+- MySQL 8.0+
+
+### 1. Clone Repository
+```bash
+git clone https://github.com/Nayarrr/assignementEcompile
+cd assignementEcompile
+```
+
+### 2. Database Setup
+
+**Create MySQL database and user:**
+
+```bash
+mysql -u root -p
+```
+
+```sql
+CREATE DATABASE cleaner_booking;
+CREATE USER 'cleaner_user'@'localhost' IDENTIFIED BY 'password123';
+GRANT ALL PRIVILEGES ON cleaner_booking.* TO 'cleaner_user'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+```
+
+### 3. Backend Setup
+
 ```bash
 cd backend
 composer install
+cp .env.example .env
 php artisan key:generate
-php artisan migrate:fresh --seed
-
-# Once the accounts are created you can simply :
-npm run serve
 ```
 
-### 2. Frontend (Vue 3)
+**Edit `.env` and verify database configuration:**
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=cleaner_booking
+DB_USERNAME=cleaner_user
+DB_PASSWORD=password123
+```
+
+**Run migrations:**
+```bash
+php artisan migrate:fresh --seed
+```
+
+**Start backend server:**
+```bash
+npm run serve
+```
+Backend will run on http://localhost:4000
+
+### 4. Frontend Setup
+
+**In a new terminal:**
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
-### 3. Or start both servers at once
-```bash
-chmod +x start.sh
-./start.sh 
-```
-
-**Access:** http://localhost:4200
+Frontend will run on http://localhost:4200
 
 ---
 
-## Test Credentials
+**Admin Account:**
+- Email: `admin@example.com`
+- Password: `password123`
 
-### Admin
-- **Email:** admin@example.com
-- **Password:** password123
-
-### Normal User
-- **Email:** User@example.com
-- **Password:** password123
+**Regular User:**
+- Email: `user@example.com`
+- Password: `password123`
 
 ---
 
-## API Endpoints
+## 🔗 API Endpoints
 
-**Base URL:** http://localhost:4000/api
+### Authentication
+- `POST /register` - Register new user
+- `POST /login` - Login (returns Bearer token)
+- `POST /logout` - Logout (requires auth)
+- `GET /user` - Get current user (requires auth)
 
-### Auth
-- `POST /register` - Register user
-- `POST /login` - Login (get token)
-- `POST /logout` - Logout
-- `GET /user` - Current user
+### Services (Public)
+- `GET /services` - List all services
+- `GET /services/{id}` - Show single service
 
-### Services
-- `GET /services` - List all (public)
-- `GET /services/{id}` - Show single service (public)
-- `POST /services` - Create (admin)
-- `PUT /services/{id}` - Update (admin)
-- `DELETE /services/{id}` - Delete (admin)
+### Services (Admin Only)
+- `POST /services` - Create service
+- `PUT /services/{id}` - Update service
+- `DELETE /services/{id}` - Delete service
 
-### Bookings
-- `GET /bookings` - List (user: own, admin: all)
-- `POST /bookings` - Create booking
-- `GET /bookings/{id}` - Show booking
-- `PATCH /bookings/{id}/status` - Update status (admin)
-- `PATCH /bookings/{id}/cancel` - Cancel (user)
-- `DELETE /bookings/{id}` - Delete
+### Bookings (Authenticated Users)
+- `GET /bookings` - List bookings (user: own bookings, admin: all bookings)
+- `POST /bookings` - Create new booking
+- `GET /bookings/{id}` - Show booking details
+- `PATCH /bookings/{id}/cancel` - Cancel booking
+- `DELETE /bookings/{id}` - Delete booking
+
+### Bookings (Admin Only)
+- `PATCH /bookings/{id}/status` - Update booking status (pending/confirmed/cancelled)
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
 
-**Backend:** Laravel 11, MySQL, Sanctum  
-**Frontend:** Vue 3, TypeScript, Pinia, Vite
+**Backend:**
+- Laravel 11
+- MySQL 8.0
+- Laravel Sanctum (API Authentication)
+
+**Frontend:**
+- Vue 3 (Composition API)
+- TypeScript
+- Pinia (State Management)
+- Vite (Build Tool)
+
+---
