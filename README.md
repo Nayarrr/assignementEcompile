@@ -64,6 +64,12 @@ npm run serve
 ```
 Backend will run on http://localhost:4000
 
+**Start the entire app:**
+
+```bash
+./start.sh
+```
+
 ### 4. Frontend Setup
 
 **In a new terminal:**
